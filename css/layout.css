@@ -1,0 +1,178 @@
+/* --- SEZIONE HERO --- */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Allinea il titolo in alto */
+  align-items: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.hero-title-container {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  min-height: 120px;
+  z-index: 5;
+  margin-top: 2vh;
+  overflow: hidden; /* Taglia eventuali artefatti del titolo SVG che sbordano */
+  display: flex;
+  justify-content: center; /* Centra il titolo orizzontalmente */
+  align-items: center;
+  opacity: 0; /* Gestito da GSAP */
+  pointer-events: none;
+}
+
+/* --- CONTENITORE IMMAGINI HERO --- */
+.hero-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Asymmetric Layout */
+.hero-img-1 {
+  left: 5%;
+  top: 26%;
+  width: 130px;
+  height: 155px;
+  z-index: 1;
+}
+.hero-img-2 {
+  right: 5%;
+  top: 26%;
+  width: 160px;
+  height: 182px;
+  z-index: 2;
+}
+.hero-img-3 {
+  left: 50%;
+  bottom: 8%;
+  width: 219px;
+  height: 175px;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+/* Sezione 2: Storytelling */
+.storytelling {
+  padding: var(--wp--preset--spacing--60) 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+  align-items: center;
+}
+
+/* --- Menu Full-screen Style --- */
+.sb-menu-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Più stabile di 100vw su mobile */
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    rgba(224, 244, 247, 0.8) 0%,
+    rgba(244, 236, 225, 0.8) 100%
+  );
+  backdrop-filter: blur(15px); /* Effetto vetro sfocato */
+  -webkit-backdrop-filter: blur(15px); /* Supporto per Safari */
+  z-index: 1000;
+  display: none; /* Cambiato da flex a none per eliminare interferenze di rendering */
+  will-change: opacity; /* Forza l'isolamento del livello di rendering */
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none; /* Evita interferenze di rendering quando il menu è chiuso */
+  transition: opacity 0.4s ease;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
+  overflow: hidden; /* Impedisce artefatti visivi ai bordi dovuti al filtro blur */
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.sb-menu-fullscreen *,
+.sb-menu-fullscreen nav,
+.sb-menu-fullscreen ul {
+  width: 100%;
+  outline: none !important;
+  outline-width: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.sb-menu-fullscreen:focus,
+.sb-menu-fullscreen:active {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+body.sb-menu-open .sb-menu-fullscreen {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto; /* Riattiva le interazioni quando il menu è aperto */
+}
+
+/* --- NUOVE SEZIONI --- */
+.sb-section {
+  padding: 80px 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  color: var(--sea-deep);
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+/* Griglia Camere e Territorio */
+.rooms-grid,
+.territory-grid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: 1fr; /* Mobile: 1 colonna */
+}
+
+@media (min-width: 768px) {
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 60px;
+  }
+  .territory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Breakfast Layout */
+.breakfast-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .breakfast-container {
+    flex-direction: row;
+  }
+  .breakfast-content,
+  .breakfast-image {
+    flex: 1;
+  }
+}

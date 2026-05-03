@@ -26,6 +26,7 @@ function runHomeEntrance() {
       duration: 1.2,
       stagger: 0.1,
       ease: "power3.out",
+      onStart: () => console.log("Animazione immagini partita")
     }, 0.3);
   }
   // 2. Apparizione contenitore titolo
@@ -88,120 +89,65 @@ gsap.to(".hero-images-container", {
 // --- ANIMAZIONE TESTO STORYTELLING ---
 // Il testo "L'Anima della Baia" sale e appare quando entra nella visuale (80% della finestra)
 gsap.fromTo(".story-text", 
-  { opacity: 0, y: -80 },
-  {
-    opacity: 1,
-    y: 0,
-    duration: 1.5,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".storytelling",
-      start: "top 85%",
-    },
-});
-
-// Dinamismo Storytelling (Parallax)
-gsap.to(".story-text", {
-  y: -60,
-  scrollTrigger: {
-    trigger: ".storytelling",
-    start: "top bottom",
-    scrub: 1
-  }
-});
-
-// --- ANIMAZIONE SEZIONE COLAZIONE ---
-gsap.fromTo("#breakfast .breakfast-content, #breakfast .breakfast-image", 
-  { opacity: 0, y: -80 },
+  { opacity: 0, y: -40 },
   {
     opacity: 1,
     y: 0,
     duration: 1.2,
+    scrollTrigger: {
+      trigger: ".storytelling",
+      start: "top 80%",
+    },
+});
+
+// --- ANIMAZIONE SEZIONE COLAZIONE ---
+gsap.fromTo("#breakfast .breakfast-content, #breakfast .breakfast-image", 
+  { opacity: 0, y: -30 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 1,
     stagger: 0.2,
     ease: "power3.out",
     scrollTrigger: {
       trigger: "#breakfast",
-      start: "top 85%",
+      start: "top 85%", // Inizia un po' prima
     }
   }
 );
 
-// Dinamismo Colazione (Parallax come in Home)
-gsap.to("#breakfast .breakfast-image", {
-  y: -120,
-  scrollTrigger: {
-    trigger: "#breakfast",
-    start: "top bottom",
-    end: "bottom top",
-    scrub: 1.5
-  }
-});
-
 // --- ANIMAZIONE NUOVE SEZIONI (ROOMS & TERRITORY) ---
-
-/**
- * initCardsAnimations(selector, triggerId)
- * Inizializza le animazioni delle card: Entrance (laterale su mobile), Parallax e comparsa testo.
- */
-function initCardsAnimations(selector, triggerId) {
-  gsap.utils.toArray(selector).forEach((card, i) => {
-    const cardContent = card.querySelector(".card-content");
-
-    // 1. Animazione di Entrata Laterale (Sinistra/Destra alternata)
-    gsap.fromTo(card, 
-      { 
-        opacity: 0, 
-        y: 0,
-        x: i % 2 === 0 ? -150 : 150 
-      },
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 90%",
-        }
-      }
-    );
-
-    // 2. Animazione del testo interno (Appare dopo la card)
-    if (cardContent) {
-      gsap.fromTo(cardContent,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: 0.4,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-          }
-        }
-      );
+// Animazione per le card delle camere
+gsap.fromTo(".room-card", 
+  { opacity: 0, y: -50 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    stagger: 0.1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: "#rooms",
+      start: "top 90%", // Trigger più sensibile
     }
+  }
+);
 
-    // 3. Dinamismo Parallax (Sempre attivo allo scroll)
-    const parallaxY = selector === ".room-card" ? (-80 - (i * 25)) : (-60 - (i * 15));
-    gsap.to(card, {
-      y: parallaxY,
-      scrollTrigger: {
-        trigger: card,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1
-      }
-    });
-  });
-}
-
-// Inizializzazione per Camere e Territorio
-initCardsAnimations(".room-card", "#rooms");
-initCardsAnimations(".territory-card", "#territory");
+// Animazione per le card del territorio
+gsap.fromTo(".territory-card", 
+  { opacity: 0, y: -50 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    stagger: 0.1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: "#territory",
+      start: "top 90%",
+    }
+  }
+);
 
 /**
  * animateSectionEntrance(id)
@@ -221,28 +167,10 @@ function animateSectionEntrance(id) {
   else if (id === ".hero") { runHomeEntrance(); return; }
 
   if (targetElements) {
-    // Applichiamo l'entrata laterale alternata anche al click per Camere e Territorio
-    if (id === "#territory" || id === "#rooms") {
-      gsap.utils.toArray(targetElements).forEach((el, i) => {
-        gsap.fromTo(el, 
-          { opacity: 0, x: i % 2 === 0 ? -150 : 150, y: 0 }, 
-          { opacity: 1, x: 0, y: 0, duration: 1, ease: "power3.out", delay: i * 0.1 }
-        );
-      });
-    } else {
-      gsap.fromTo(targetElements, 
-        { opacity: 0, y: -80 }, 
-        { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out" }
-      );
-    }
-
-    // Animazione specifica per i testi interni alle card al click
-    if (id === "#territory" || id === "#rooms") {
-      gsap.fromTo(`${id} .card-content`, 
-        { opacity: 0, y: 20 }, 
-        { opacity: 1, y: 0, duration: 0.8, delay: 0.5, stagger: 0.1 }
-      );
-    }
+    gsap.fromTo(targetElements, 
+      { opacity: 0, y: -50 }, 
+      { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out" }
+    );
   }
 }
 

@@ -1,0 +1,51 @@
+/* --- ANIMAZIONI --- */
+
+.sb-nav-hamburger .sb-nav-sole {
+  fill: var(--sun-yellow);
+  transform-origin: 1021px 625px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: sb-nav-sunEntrance 1.6s ease-out forwards; /* Animazione di ingresso al caricamento */
+}
+
+/* Animazione di rimbalzo del sole quando la pagina si carica */
+@keyframes sb-nav-sunEntrance {
+  0% {
+    transform: translateY(-800px) scale(1, 1);
+    animation-timing-function: ease-in;
+  }
+  30% {
+    transform: translateY(72px) scale(1.2, 0.8);
+    animation-timing-function: ease-out;
+  }
+  55% {
+    transform: translateY(-120px) scale(1, 1);
+    animation-timing-function: ease-in;
+  }
+  80% {
+    transform: translateY(20px) scale(1.05, 0.95);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+/* Animazione del sole quando si clicca/apre il menu */
+@keyframes sb-nav-sunAction {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  30% {
+    transform: translateY(68px) scale(0.97, 1.06);
+  }
+  50% {
+    transform: translateY(72px) scale(1.15, 0.85);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+.sb-nav-hamburger.sb-is-active .sb-nav-sole {
+  animation: sb-nav-sunAction 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

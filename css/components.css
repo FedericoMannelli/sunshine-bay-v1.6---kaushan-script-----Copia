@@ -1,0 +1,252 @@
+.hero-title-text {
+  font-family: var(--font-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra le righe del titolo */
+  text-align: center; /* Allineamento del testo al centro */
+  pointer-events: none;
+}
+
+.title-line-1 {
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  color: var(--sea-deep);
+  line-height: 1;
+  text-shadow: 2px 2px 10px rgba(93, 150, 164, 0.2);
+}
+
+.title-line-2 {
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
+  color: var(--sea-terracotta);
+  line-height: 1.1;
+  margin-top: 15px;
+}
+
+.hero-img {
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #d1d1d1; /* Grigio chiaro visibile se l'immagine manca */
+  z-index: 2;
+}
+
+.storytelling h2 {
+  font-family: var(--font-serif);
+  color: var(--sea-terracotta);
+  margin-bottom: 20px;
+}
+
+.story-text {
+  max-width: 90%;
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  font-weight: var(--body-font-weight);
+  color: var(--text-main);
+  opacity: 0; /* Gestito da GSAP */
+  transform: translateY(-80px); /* Sincronizzato con GSAP entrance */
+}
+
+/* --- TASTO HAMBURGER --- */
+.sb-nav-hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  z-index: 1100; /* Deve stare sopra il menu fullscreen (1000) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0 !important;
+  box-shadow: none !important;
+  -webkit-touch-callout: none; /* Impedisce il menu a comparsa su pressione lunga */
+  -webkit-user-select: none;
+  user-select: none;
+  border: none !important;
+}
+
+.sb-nav-hamburger:focus,
+.sb-nav-hamburger:active,
+.sb-nav-hamburger:focus-visible {
+  outline: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.sb-nav-hamburger path {
+  fill-opacity: 1;
+  stroke: none;
+  animation: none; /* Impedisce interferenze con animazioni SVG globali */
+}
+
+.sb-nav-hamburger svg {
+  width: 80%;
+  height: auto;
+  overflow: visible;
+  pointer-events: none; /* L'SVG non deve intercettare il focus separatamente */
+}
+
+.sb-nav-wave-terracotta {
+  fill: var(--sea-terracotta);
+}
+.sb-nav-water-deep {
+  fill: var(--sea-deep);
+}
+.sb-nav-water-light {
+  fill: var(--sea-teal);
+}
+
+.sb-menu-list {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.sb-menu-item {
+  width: 100%;
+  margin: 30px 0;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.sb-menu-link {
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  color: var(--sea-deep); /* Contrasto elevato sul fondo chiaro */
+  text-decoration: none;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+  display: inline-block;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  box-shadow: none !important;
+}
+
+.sb-menu-link:focus,
+.sb-menu-link:active,
+.sb-menu-link:focus-visible {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.sb-menu-link:hover {
+  color: var(--sea-terracotta);
+  transform: scale(1.05);
+}
+
+/* --- CARD STYLE (Camere & Territorio) --- */
+.room-card,
+.territory-card {
+  position: relative;
+  height: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #d1d1d1;
+  opacity: 0; /* Gestito da GSAP */
+}
+
+/* Effetto asimmetrico per le camere (Desktop) */
+@media (min-width: 768px) {
+  .rooms-grid .room-card:nth-child(even) {
+    margin-top: 40px;
+  }
+  .rooms-grid .room-card:nth-child(odd) {
+    margin-bottom: 40px;
+  }
+}
+
+.room-card img,
+.territory-card img,
+.breakfast-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.room-card:hover img,
+.territory-card:hover img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: clamp(15px, 3vw, 25px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  width: 100%;
+  color: #fff;
+  z-index: 2;
+  opacity: 0; /* Inizialmente nascosto per l'animazione GSAP */
+}
+
+.card-content h3,
+.card-content span {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  display: block;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* --- FOOTER & WHATSAPP --- */
+.sb-footer {
+  background: #fff;
+  padding: 60px 25px;
+  text-align: center;
+  border-top: 1px solid rgba(93, 150, 164, 0.1);
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  background-color: var(--sea-terracotta);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+  margin-top: 20px;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-3px);
+  background-color: var(--sea-deep);
+}

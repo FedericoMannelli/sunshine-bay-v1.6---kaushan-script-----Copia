@@ -12,41 +12,100 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Kaushan+Script&display=swap"
       rel="stylesheet"
     />
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
     <!-- Collegamento al file CSS nella cartella css/ -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/media-queries.css" />
   </head>
   <body>
+    <!-- Menu Overlay Full-screen -->
+    <div class="sb-menu-fullscreen" tabindex="-1">
+      <nav>
+        <ul class="sb-menu-list">
+          <li class="sb-menu-item">
+            <a href=".hero" class="sb-menu-link">Home</a>
+          </li>
+          <li class="sb-menu-item">
+            <a href="#storytelling" class="sb-menu-link">L'Anima della Baia</a>
+          </li>
+          <li class="sb-menu-item">
+            <a href="#rooms" class="sb-menu-link">Le Camere</a>
+          </li>
+          <li class="sb-menu-item">
+            <a href="#territory" class="sb-menu-link">Esperienze</a>
+          </li>
+          <li class="sb-menu-item">
+            <a href="#contact" class="sb-menu-link">Contatti</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Icona Hamburger Menu Animata -->
+    <div class="sb-nav-hamburger">
+      <svg viewBox="580 320 900 850" xmlns="http://www.w3.org/2000/svg">
+        <path
+          class="sb-nav-wave-terracotta"
+          d="M 634.407 653.69 C 643.865 665.398 652.61 679.99 663.006 692.844 C 695.612 732.476 734.305 766.679 777.639 794.175 C 882.086 859.485 1008.2 880.615 1128.23 852.915 C 1242.39 826.128 1351.82 753.469 1413.89 653.161 C 1422.71 668.245 1430.88 688.928 1436.84 705.464 C 1458 764.21 1461.92 814.528 1458.88 876.142 C 1456.91 896.731 1454.15 912.512 1450.38 932.882 C 1285.78 872.174 1168.96 924.177 1010.72 975.395 C 895.923 1012.55 725.582 1034.88 610.365 986.395 C 608.676 982.063 606.866 976.556 605.531 972.126 C 574.848 870.295 583.94 747.834 634.407 653.69 z"
+        />
+        <path
+          class="sb-nav-water-deep"
+          d="M 1406.92 978.464 C 1417.37 978.271 1429.37 978.896 1439.93 979.2 C 1427.1 1020.68 1407.82 1059.89 1382.8 1095.37 C 1236.45 1299.25 967.785 1343.96 764.141 1196.81 C 734.258 1173.67 710.745 1151.58 686.919 1121.98 C 701.96 1119.01 724.403 1117.26 740.832 1114.59 C 798.307 1144.91 843.996 1156.84 908.337 1157.27 C 1019.2 1158.02 1102.88 1106.98 1193.42 1049.82 C 1257.81 1009.17 1329.35 980.858 1406.92 978.464 z"
+        />
+        <path
+          class="sb-nav-water-light"
+          d="M 628 1038 C 641 1064 650 1080 668 1097 C 755 1085 769 1082 833 1065 C 880 1051 917 1039 969 1014 C 871 1040 715 1060 619 1016 Z"
+        />
+        <path
+          class="sb-nav-water-light"
+          d="M 1298.59 929.466 C 1350.56 928.668 1383.13 936.108 1431.19 952.843 C 1373.88 953.542 1310.66 963.611 1258.65 987.973 C 1132.94 1046.86 1060.62 1128.19 913.478 1132.85 C 863.73 1133.53 824.122 1125.07 778.484 1106.04 C 805.815 1101.55 846.76 1088.67 872.944 1078.9 C 1022.68 1023.02 1131.11 934.714 1298.59 929.466 z"
+        />
+        <path
+          class="sb-nav-sole"
+          d="M 1001.9 430.275 C 1110.92 418.178 1209.1 496.777 1221.15 605.806 C 1233.2 714.835 1154.56 812.981 1045.53 824.988 C 936.56 836.988 838.484 758.403 826.439 649.439 C 814.394 540.474 892.937 442.366 1001.9 430.275 z"
+        />
+      </svg>
+    </div>
+
     <section class="hero">
       <div class="hero-images-container">
         <img
-          src="https://images.unsplash.com/photo-1544124499-58912cbddada?auto=format&fit=crop&q=80&w=600"
-          alt="View 1"
+          src="img/gambe.jpg"
+          alt="Descrizione Foto 1"
           class="hero-img hero-img-1"
         />
         <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
-          alt="View 2"
+          src="img/tramonto.jpg"
+          alt="Descrizione Foto 2"
           class="hero-img hero-img-2"
         />
         <img
-          src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=600"
-          alt="View 3"
+          src="img/fiore.jpg"
+          alt="Descrizione Foto 3"
           class="hero-img hero-img-3"
         />
       </div>
 
-      <h1 class="hero-title">Sunshine Bay</h1>
+      <div class="hero-title-container">
+        <div class="hero-title-text">
+          <span class="title-line-1">Sunshine Bay</span>
+          <span class="title-line-2">Costa Iblea Guest House</span>
+        </div>
+      </div>
     </section>
 
-    <section class="storytelling">
+    <section id="storytelling" class="storytelling">
       <div class="story-text">
         <h2>L'Anima della Baia</h2>
         <p>
@@ -58,7 +117,124 @@
       </div>
     </section>
 
-    <div style="height: 50vh"></div>
+    <section id="territory" class="sb-section">
+      <h2 class="section-title">Il Territorio</h2>
+      <div class="territory-grid">
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=80"
+            alt="Scoglitti"
+          />
+          <div class="card-content"><span>Scoglitti</span></div>
+        </div>
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80"
+            alt="Kamarina"
+          />
+          <div class="card-content"><span>Kamarina</span></div>
+        </div>
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1493246507139-91e8bef99c17?auto=format&fit=crop&w=800&q=80"
+            alt="Punta Secca"
+          />
+          <div class="card-content"><span>Punta Secca</span></div>
+        </div>
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80"
+            alt="Marina di Ragusa"
+          />
+          <div class="card-content"><span>Marina di Ragusa</span></div>
+        </div>
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12?auto=format&fit=crop&w=800&q=80"
+            alt="Il Barocco"
+          />
+          <div class="card-content"><span>Barocco</span></div>
+        </div>
+        <div class="territory-card">
+          <img
+            src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80"
+            alt="Donnafugata"
+          />
+          <div class="card-content"><span>Donnafugata</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="breakfast" class="sb-section">
+      <div class="breakfast-container">
+        <div class="breakfast-content">
+          <h2 class="section-title">Colazione Mediterranea</h2>
+          <p>
+            Un risveglio con prodotti locali, dolci fatti in casa e frutta
+            fresca della nostra terra.
+          </p>
+        </div>
+        <div class="breakfast-image">
+          <img
+            src="https://images.unsplash.com/photo-1496048970033-574530a58201?auto=format&fit=crop&w=800&q=80"
+            alt="Colazione"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="rooms" class="sb-section">
+      <h2 class="section-title">Le Camere</h2>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <img
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80"
+            alt="Bloom Room"
+          />
+          <div class="card-content"><h3>Bloom</h3></div>
+        </div>
+        <div class="room-card">
+          <img
+            src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
+            alt="Breeze Room"
+          />
+          <div class="card-content"><h3>Breeze</h3></div>
+        </div>
+        <div class="room-card">
+          <img
+            src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80"
+            alt="Roots Room"
+          />
+          <div class="card-content"><h3>Roots</h3></div>
+        </div>
+        <div class="room-card">
+          <img
+            src="https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80"
+            alt="The Loft"
+          />
+          <div class="card-content"><h3>Loft</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact" class="sb-footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <span class="font-accent">Sunshine Bay</span>
+        </div>
+        <div class="footer-info">
+          <p>Via delle Onde, Costa Iblea (RG)</p>
+          <p>info@sunshinebay.it</p>
+        </div>
+        <div class="footer-social">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+        </div>
+        <a href="https://wa.me/yournumber" class="whatsapp-btn">
+          Prenota su WhatsApp
+        </a>
+      </div>
+    </footer>
 
     <!-- Collegamento al file JS nella cartella js/ -->
     <script src="js/script.js"></script>
