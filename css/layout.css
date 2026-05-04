@@ -62,7 +62,7 @@
 
 /* Sezione 2: Storytelling */
 .storytelling {
-  padding: var(--wp--preset--spacing--60) 25px;
+  padding: 20px 25px !important; /* Ridotto il padding per alzare la sezione storytelling nella Home */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

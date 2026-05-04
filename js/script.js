@@ -8,12 +8,16 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
  */
 function runHomeEntrance() {
   const heroImages = document.querySelectorAll(".hero-img");
+  const titleContainer = document.querySelector(".hero-title-container");
+  const titleLines = document.querySelectorAll(".title-line-1, .title-line-2");
+
+  if (heroImages.length === 0 && !titleContainer && titleLines.length === 0) return;
 
   // RESET: Riporta gli elementi allo stato iniziale (invisibili/spostati) 
   // prima di far partire l'animazione. Necessario per la ripetizione al toggle del menu.
-  gsap.set(".hero-img", { y: -80, opacity: 0 });
-  gsap.set(".hero-title-container", { opacity: 0, y: -40 });
-  gsap.set(".title-line-1, .title-line-2", { opacity: 0, y: -30 });
+  if (heroImages.length > 0) gsap.set(heroImages, { y: -80, opacity: 0 });
+  if (titleContainer) gsap.set(titleContainer, { opacity: 0, y: -40 });
+  if (titleLines.length > 0) gsap.set(titleLines, { opacity: 0, y: -30 });
 
   // Creazione della Timeline principale per sincronizzare gli ingressi
   const tl = gsap.timeline();
@@ -26,23 +30,29 @@ function runHomeEntrance() {
       duration: 1.2,
       stagger: 0.1,
       ease: "power3.out",
+    }, 0.3).addLabel("imagesDone");
+  }
+
+  // 2. Apparizione contenitore titolo
+  if (titleContainer) {
+    tl.to(titleContainer, {
+      opacity: 1, 
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out"
     }, 0.3);
   }
-  // 2. Apparizione contenitore titolo
-  tl.to(".hero-title-container", { 
-    opacity: 1, 
-    y: 0,
-    duration: 1.2,
-    ease: "power3.out"
-  }, 0.3)
+
   // 3. Animazione delle nuove righe di testo
-  .to(".title-line-1, .title-line-2", {
-    opacity: 1,
-    y: 0,
-    duration: 1.2,
-    stagger: 0.2, // Fa apparire la seconda riga poco dopo la prima
-    ease: "power3.out"
-  }, 0.3); // Inizia insieme alle immagini e al contenitore
+  if (titleLines.length > 0) {
+    tl.to(titleLines, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      stagger: 0.2, // Fa apparire la seconda riga poco dopo la prima
+      ease: "power3.out"
+    }, 0.3);
+  }
 }
 
 // Avvia l'animazione non appena il DOM è pronto
@@ -54,88 +64,116 @@ if (document.readyState === "loading") {
 
 // --- EFFETTI PARALLAX ALLO SCROLL ---
 // Ogni immagine si muove a una velocità diversa rispetto allo scroll (scrub)
-gsap.to(".hero-title-container", {
-  y: -150, // Il titolo sale in modo fluido durante lo scroll
-  scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-});
+if (document.querySelector(".hero")) {
+  gsap.to(".hero-title-container", {
+    y: -150, // Il titolo sale in modo fluido durante lo scroll
+    scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
+  });
 
-gsap.to(".hero-img-1", {
-  y: -60,
-  scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-});
-gsap.to(".hero-img-2", {
-  y: -120, // Più veloce della 1
-  scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-});
-gsap.to(".hero-img-3", {
-  y: -220, // La più veloce
-  scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-});
+  if (document.querySelector(".hero-img-1")) {
+    gsap.to(".hero-img-1", {
+      y: -60,
+      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
+    });
+  }
+  if (document.querySelector(".hero-img-2")) {
+    gsap.to(".hero-img-2", {
+      y: -120,
+      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
+    });
+  }
+  if (document.querySelector(".hero-img-3")) {
+    gsap.to(".hero-img-3", {
+      y: -220,
+      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
+    });
+  }
 
-// --- DISSOLVENZA IMMAGINI ---
-// Man mano che scendi, le immagini della hero diventano quasi trasparenti 
-// per dare enfasi ai contenuti successivi.
-gsap.to(".hero-images-container", {
-  opacity: 0.2,
-  scrollTrigger: {
-    trigger: ".hero",
-    start: "center center",
-    end: "bottom top",
-    scrub: true,
-  },
-});
+  // --- DISSOLVENZA IMMAGINI ---
+  gsap.to(".hero-images-container", {
+    opacity: 0.2,
+    scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true },
+  });
+}
 
 // --- ANIMAZIONE TESTO STORYTELLING ---
 // Il testo "L'Anima della Baia" sale e appare quando entra nella visuale (80% della finestra)
-gsap.fromTo(".story-text", 
-  { opacity: 0, y: -80 },
-  {
-    opacity: 1,
-    y: 0,
-    duration: 1.5,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".storytelling",
-      start: "top 85%",
-    },
-});
+const storyText = document.querySelector(".story-text");
+const storytellingSection = document.querySelector(".storytelling");
 
-// Dinamismo Storytelling (Parallax)
-gsap.to(".story-text", {
-  y: -60,
-  scrollTrigger: {
-    trigger: ".storytelling",
-    start: "top bottom",
-    scrub: 1
+if (storyText) {
+  // Se siamo nella Home (esiste .storytelling)
+  if (storytellingSection) {
+    gsap.fromTo(storyText, 
+      { opacity: 0, y: -50 }, 
+      {
+        opacity: 1,
+        y: 0, 
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: storytellingSection,
+          start: "top 85%",
+        },
+    });
+
+    // Dinamismo Storytelling (Parallax)
+    gsap.to(storyText, {
+      y: -80,
+      scrollTrigger: {
+        trigger: storytellingSection,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+  } else {
+    // Se siamo in una pagina stanza (non esiste .storytelling), lo facciamo apparire subito
+    gsap.to(storyText, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      delay: 0.5
+    });
   }
-});
+}
+
 
 // --- ANIMAZIONE SEZIONE COLAZIONE ---
-gsap.fromTo("#breakfast .breakfast-content, #breakfast .breakfast-image", 
-  { opacity: 0, y: -80 },
-  {
-    opacity: 1,
-    y: 0,
-    duration: 1.2,
-    stagger: 0.2,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#breakfast",
-      start: "top 85%",
-    }
+const breakfastSection = document.querySelector("#breakfast");
+if (breakfastSection) {
+  const bElements = breakfastSection.querySelectorAll(".breakfast-content, .breakfast-image");
+  if (bElements.length > 0) {
+    gsap.fromTo(bElements, 
+      { opacity: 0, y: -80 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: breakfastSection,
+          start: "top 85%",
+        }
+      }
+    );
   }
-);
 
-// Dinamismo Colazione (Parallax come in Home)
-gsap.to("#breakfast .breakfast-image", {
-  y: -120,
-  scrollTrigger: {
-    trigger: "#breakfast",
-    start: "top bottom",
-    end: "bottom top",
-    scrub: 1.5
+  const bImage = breakfastSection.querySelector(".breakfast-image");
+  if (bImage) {
+    gsap.to(bImage, {
+      y: -120,
+      scrollTrigger: {
+        trigger: breakfastSection,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
   }
-});
+}
 
 // --- ANIMAZIONE NUOVE SEZIONI (ROOMS & TERRITORY) ---
 
@@ -231,17 +269,20 @@ function animateSectionEntrance(id) {
       });
     } else {
       gsap.fromTo(targetElements, 
-        { opacity: 0, y: -80 }, 
+        { opacity: 0, y: -50 }, // Allineato alla nuova animazione
         { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out" }
       );
     }
 
     // Animazione specifica per i testi interni alle card al click
     if (id === "#territory" || id === "#rooms") {
-      gsap.fromTo(`${id} .card-content`, 
+      const contents = section.querySelectorAll(".card-content");
+      if (contents.length > 0) {
+        gsap.fromTo(contents, 
         { opacity: 0, y: 20 }, 
         { opacity: 1, y: 0, duration: 0.8, delay: 0.5, stagger: 0.1 }
       );
+      }
     }
   }
 }
@@ -261,11 +302,13 @@ if (menuToggle) {
     bodyElement.classList.toggle('sb-menu-open');
 
     if (isOpening) {
-      // Animazione di entrata per le voci del menu (stagger)
-      gsap.fromTo(".sb-menu-item", 
-        { opacity: 0, y: -20 }, 
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out", delay: 0.3 }
-      );
+      const menuItems = document.querySelectorAll(".sb-menu-item");
+      if (menuItems.length > 0) {
+        gsap.fromTo(menuItems, 
+          { opacity: 0, y: -20 }, 
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out", delay: 0.3 }
+        );
+      }
     }
 
     // Se chiudiamo il menu, resettiamo l'animazione della hero per un effetto "fresco"
@@ -280,9 +323,14 @@ if (menuToggle) {
   // Gestione click sui link del menu
   document.querySelectorAll('.sb-menu-link').forEach(link => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
       const target = link.getAttribute('href');
       
+      // Se il link è un'ancora locale (ID o Classe) sulla stessa pagina
+      if (target.startsWith('#') || target.startsWith('.')) {
+        const targetElement = document.querySelector(target);
+        if (targetElement) {
+          e.preventDefault();
+          
       // Chiude il menu dopo il click
       menuToggle.classList.remove('sb-is-active');
       bodyElement.classList.remove('sb-menu-open');
@@ -296,6 +344,80 @@ if (menuToggle) {
           animateSectionEntrance(target);
         }
       });
+        }
+      }
+      // Altrimenti (es. link a ../index.html) lasciamo che il browser navighi normalmente
     });
   });
 }
+
+/**
+ * initRoomDetailPageAnimations()
+ * Gestisce l'effetto Mirror Gallery: foto sinistra da sinistra, foto destra da destra.
+ */
+function initRoomDetailPageAnimations() {
+  if (!document.querySelector('.room-hero')) return;
+
+  // Hero Entrance
+  gsap.from(".room-hero h1", { opacity: 0, y: 100, duration: 1.5, ease: "power4.out" });
+  
+  // Mirror Gallery Entrance
+  const galleryRows = document.querySelectorAll(".room-gallery-row");
+  galleryRows.forEach(row => {
+    const left = row.querySelector(".photo-left");
+    const right = row.querySelector(".photo-right");
+    const info = row.querySelector(".room-tech-info") || row.querySelector(".room-info");
+
+    if (left || right || info) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: row,
+          start: "top 80%",
+        }
+      });
+
+      if (left) tl.from(left, { x: -200, opacity: 0, duration: 1.2, ease: "power3.out" });
+      if (right) tl.from(right, { x: 200, opacity: 0, duration: 1.2, ease: "power3.out" }, left ? "-=1" : 0);
+      if (info) tl.from(info, { opacity: 0, scale: 0.95, duration: 0.8, ease: "power2.out" }, "-=0.5");
+    }
+  });
+
+  // Animazione icone navigazione altre stanze
+  const otherRoomsItems = document.querySelectorAll(".sb-room-nav-item");
+  if (otherRoomsItems.length > 0) {
+    // 1. Animazione di Entrata (Fade-in quando appaiono)
+    gsap.set(otherRoomsItems, { opacity: 0, scale: 0.7 }); // Stato iniziale
+    
+    gsap.to(otherRoomsItems, {
+      scrollTrigger: {
+        trigger: ".sb-room-nav-grid",
+        start: "top 95%", // Più sensibile: scatta quasi subito quando appare il bordo superiore
+      },
+      opacity: 1,
+      scale: 1,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: "power2.out",
+      overwrite: "auto"
+    });
+
+    // 2. Parallax Scroll (Scrub): Ogni logo sale a velocità diversa
+    otherRoomsItems.forEach((item, i) => {
+      gsap.to(item, {
+        y: -40 - (i * 20), // Spostamento asimmetrico
+        scrollTrigger: {
+          trigger: ".sb-room-nav-grid",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5
+        }
+      });
+    });
+  }
+  ScrollTrigger.refresh();
+}
+
+// Boot init based on page type
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector('.room-hero')) initRoomDetailPageAnimations();
+});

@@ -39,12 +39,15 @@
 
 .story-text {
   max-width: 90%;
+  margin: 0 auto; /* Centra il blocco di testo orizzontalmente */
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
   font-weight: var(--body-font-weight);
   color: var(--text-main);
   opacity: 0; /* Gestito da GSAP */
-  transform: translateY(-80px); /* Sincronizzato con GSAP entrance */
+  transform: translateY(
+    -50px
+  ); /* Inizio dall'alto senza important per far lavorare GSAP */
 }
 
 /* --- TASTO HAMBURGER --- */
@@ -231,22 +234,367 @@
   gap: 20px;
   align-items: center;
 }
-
 .whatsapp-btn {
-  display: inline-block;
-  background-color: var(--sea-terracotta);
+  background-color: #25d366; /* WhatsApp green */
+}
+
+.telegram-btn {
+  background-color: #0088cc; /* Telegram blue */
+}
+
+.instagram-btn {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+}
+
+.facebook-btn {
+  background-color: #1877f2; /* Facebook blue */
+}
+
+/* Common styles for all social icon buttons */
+.whatsapp-btn,
+.telegram-btn,
+.instagram-btn,
+.facebook-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Fixed size for circular button */
+  height: 50px; /* Fixed size for circular button */
+  border-radius: 50%; /* Make it circular */
   color: white;
-  padding: 15px 30px;
-  border-radius: 50px;
   text-decoration: none;
-  font-weight: 600;
   transition:
     transform 0.3s ease,
     background 0.3s ease;
-  margin-top: 20px;
 }
 
 .whatsapp-btn:hover {
   transform: translateY(-3px);
-  background-color: var(--sea-deep);
+  background-color: #1da851; /* Darker WhatsApp green */
+}
+
+.telegram-btn:hover {
+  transform: translateY(-3px);
+  background-color: #006699; /* Darker Telegram blue */
+}
+
+.instagram-btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.9; /* Slight opacity change for hover */
+}
+
+.facebook-btn:hover {
+  transform: translateY(-3px);
+  background-color: #145cb3; /* Darker Facebook blue */
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 10px; /* Spacing between circular buttons */
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px; /* Apply margin to the container */
+}
+
+/* --- ROOM DETAIL PAGES STYLES --- */
+.room-hero {
+  height: 60vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-hero img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-hero h1 {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-accent);
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.room-intro-text {
+  max-width: 800px;
+  margin: 100px auto 80px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Mirror Gallery Layout */
+.room-gallery-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  gap: clamp(20px, 4vw, 50px);
+  margin: 120px 0;
+}
+
+.room-gallery-row.reversed {
+  direction: rtl;
+}
+
+.room-gallery-row.reversed > * {
+  direction: ltr;
+}
+
+.room-photo {
+  position: relative;
+  height: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #d1d1d1;
+}
+
+.room-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Overlay cromatici basati sulla stanza */
+.bloom .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sun-yellow);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.breeze .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-teal);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.roots .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-terracotta);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.loft .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-deep);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.room-photo:hover img {
+  transform: scale(1.05);
+}
+.room-hero {
+  height: 60vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-hero img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-hero h1 {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-accent);
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.room-intro-text {
+  max-width: 800px;
+  margin: 100px auto 80px; /* Aumentato per distanziarlo correttamente dalla Hero */
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Mirror Gallery Layout */
+.room-gallery-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  gap: clamp(20px, 4vw, 50px);
+  margin: 120px 0;
+}
+
+/* Gestione inversione per Breeze e Loft */
+.room-gallery-row.reversed {
+  direction: rtl; /* Inverte l'ordine delle colonne del grid */
+}
+
+.room-gallery-row.reversed > * {
+  direction: ltr; /* Ripristina la direzione del testo interna */
+}
+
+.room-photo {
+  position: relative;
+  height: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #d1d1d1;
+}
+
+.room-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Overlay cromatici basati sulla stanza */
+.bloom .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sun-yellow);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.breeze .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-teal);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.roots .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-terracotta);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.loft .room-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sea-deep);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.room-photo:hover img {
+  transform: scale(1.05);
+}
+
+/* --- Altre Stanze Navigation --- */
+.sb-room-nav-grid {
+  display: flex;
+  justify-content: center;
+  gap: clamp(15px, 4vw, 40px);
+  flex-wrap: wrap; /* Permette agli elementi di andare a capo */
+  margin-top: 60px; /* Distanza dalla Mirror Gallery */
+  padding-top: 40px;
+  border-top: 1px solid rgba(45, 84, 100, 0.1); /* Linea sottile divisoria */
+}
+
+.sb-room-nav-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sb-room-nav-thumb {
+  width: 80px; /* Ridotto la larghezza */
+  height: 80px; /* Ridotto l'altezza */
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sb-room-nav-item:hover .sb-room-nav-thumb {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--sun-yellow);
+}
+
+.sb-room-nav-name {
+  font-family: var(--font-accent); /* Mantenuto lo stile */
+  font-size: 1.4rem; /* Ridotto leggermente il font per adattarsi */
+  color: var(--sea-deep);
+  transition: color 0.3s;
+}
+
+.sb-room-nav-item:hover .sb-room-nav-name {
+  color: var(--sea-terracotta);
+}
+
+.room-gallery-row .room-info {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.room-info h3 {
+  font-family: var(--font-accent);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--sea-deep);
+  margin-bottom: 15px;
+}
+
+.room-tech-info {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.room-tech-info h4 {
+  font-family: var(--font-serif);
+  color: var(--sea-deep);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 992px) {
+  .room-gallery-row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    direction: ltr !important; /* Forza l'ordine naturale su mobile */
+  }
+
+  .room-photo {
+    height: 300px; /* Altezza leggermente ridotta su mobile per migliorare la leggibilità */
+  }
 }

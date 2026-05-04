@@ -26,4 +26,8 @@
     font-size: clamp(1.4rem, 5.5vw, 2rem);
     margin-top: 8px;
   }
+
+  .room-intro-text {
+    margin-top: 60px; /* Spazio equilibrato su mobile */
+  }
 }
