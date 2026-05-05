@@ -60,6 +60,22 @@
   z-index: 3;
 }
 
+/* Desktop Responsive Sizes - Ingrandimento e Responsività */
+@media (min-width: 1024px) {
+  .hero-img-1 {
+    width: 18vw;
+    height: 22vw;
+  }
+  .hero-img-2 {
+    width: 22vw;
+    height: 25vw;
+  }
+  .hero-img-3 {
+    width: 30vw;
+    height: 24vw;
+  }
+}
+
 /* Sezione 2: Storytelling */
 .storytelling {
   padding: 20px 25px !important; /* Ridotto il padding per alzare la sezione storytelling nella Home */
