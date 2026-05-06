@@ -12,10 +12,10 @@
   }
 
   .hero-title-container {
-    width: 100%;
+    width: 100vw;
+    max-width: 100%;
     min-height: auto;
-    margin-top: 0;
-    margin-right: 0;
+    margin: 0 auto;
   }
 
   .title-line-1 {

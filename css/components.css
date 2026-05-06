@@ -1,5 +1,46 @@
+/* --- STILI GLOBALI E TIPOGRAFIA --- */
+body,
+p {
+  font-family: var(--font-sans), sans-serif;
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+}
+
+h1,
+.font-accent,
+.sb-menu-link,
+.sb-room-nav-name,
+.room-info h3,
+.title-line-1,
+.title-line-2 {
+  font-family: var(--font-accent), cursive;
+}
+
+h2,
+h3,
+h4,
+.font-serif,
+.section-title,
+.card-content h3,
+.card-content span,
+.room-tech-info h4 {
+  font-family: var(--font-serif), serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.section-title {
+  color: var(--sea-deep);
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+/* --- COMPONENTI HERO --- */
 .hero-title-text {
-  font-family: var(--font-accent);
   display: flex;
   flex-direction: column;
   align-items: center; /* Centra le righe del titolo */
@@ -24,15 +65,58 @@
 .hero-img {
   position: absolute;
   display: block;
-  object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: #d1d1d1; /* Grigio chiaro visibile se l'immagine manca */
   z-index: 2;
 }
 
+/* --- SHARED DECORATIVE STYLES (Visual Consistency) --- */
+.hero-img,
+.room-card,
+.territory-card,
+.room-photo,
+.breakfast-image {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Sfondo grigio solo per i contenitori di card e gallery, non per la Hero */
+.room-card,
+.territory-card,
+.room-photo,
+.breakfast-image {
+  background: #d1d1d1;
+}
+
+/* --- STRUCTURAL LAYOUT FOR CARDS & MEDIA --- */
+.room-card,
+.territory-card,
+.room-photo {
+  position: relative;
+  height: 350px;
+}
+
+/* Proporzioni ottimizzate per la sezione colazione */
+.breakfast-image {
+  position: relative;
+  height: 230px;
+  width: 460px;
+  max-width: 100%;
+  flex: none; /* Impedisce al flexbox di deformare le proporzioni 2:1 */
+}
+
+@media (max-width: 768px) {
+  .breakfast-image {
+    height: auto;
+    aspect-ratio: 2 / 1;
+  }
+}
+
+/* Fix hero-img-3: visualizzazione intera peschereccio */
+.hero-img-3 {
+  object-fit: contain !important;
+}
+
 .storytelling h2 {
-  font-family: var(--font-serif);
   color: var(--sea-terracotta);
   margin-bottom: 20px;
 }
@@ -40,10 +124,6 @@
 .story-text {
   max-width: 90%;
   margin: 0 auto; /* Centra il blocco di testo orizzontalmente */
-  font-size: var(--body-font-size);
-  line-height: var(--body-line-height);
-  font-weight: var(--body-font-weight);
-  color: var(--text-main);
   opacity: 0; /* Gestito da GSAP */
   transform: translateY(
     -50px
@@ -69,15 +149,6 @@
   -webkit-user-select: none;
   user-select: none;
   border: none !important;
-}
-
-.sb-nav-hamburger:focus,
-.sb-nav-hamburger:active,
-.sb-nav-hamburger:focus-visible {
-  outline: 0 !important;
-  -webkit-tap-highlight-color: transparent !important;
-  box-shadow: none !important;
-  background: transparent !important;
 }
 
 .sb-nav-hamburger path {
@@ -108,28 +179,14 @@
   width: 100%;
   list-style: none;
   text-align: center;
-  padding: 0;
-  outline: none !important;
-  outline-width: 0 !important;
-  outline-style: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
 }
 
 .sb-menu-item {
   width: 100%;
   margin: 30px 0;
-  outline: none !important;
-  outline-width: 0 !important;
-  outline-style: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
 }
 
 .sb-menu-link {
-  font-family: var(--font-accent);
   font-size: 2.5rem;
   color: var(--sea-deep); /* Contrasto elevato sul fondo chiaro */
   text-decoration: none;
@@ -137,24 +194,7 @@
     color 0.3s ease,
     transform 0.3s ease;
   display: inline-block;
-  outline: none !important;
-  outline-width: 0 !important;
-  outline-style: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  -webkit-user-select: none;
   user-select: none;
-  -webkit-touch-callout: none;
-  box-shadow: none !important;
-}
-
-.sb-menu-link:focus,
-.sb-menu-link:active,
-.sb-menu-link:focus-visible {
-  outline: none !important;
-  outline-width: 0 !important;
-  outline-style: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  box-shadow: none !important;
 }
 
 .sb-menu-link:hover {
@@ -162,15 +202,8 @@
   transform: scale(1.05);
 }
 
-/* --- CARD STYLE (Camere & Territorio) --- */
 .room-card,
 .territory-card {
-  position: relative;
-  height: 350px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: #d1d1d1;
   opacity: 0; /* Gestito da GSAP */
 }
 
@@ -184,18 +217,15 @@
   }
 }
 
+/* Unified Image Handling */
 .room-card img,
 .territory-card img,
-.breakfast-image img {
+.breakfast-image img,
+.room-photo img,
+.room-hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.room-card:hover img,
-.territory-card:hover img {
-  transform: scale(1.05);
 }
 
 .card-content {
@@ -212,7 +242,6 @@
 
 .card-content h3,
 .card-content span {
-  font-family: var(--font-serif);
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   display: block;
   font-weight: 400;
@@ -275,23 +304,27 @@
     background 0.3s ease;
 }
 
-.whatsapp-btn:hover {
+/* Grouped Social Hover */
+.whatsapp-btn:hover,
+.telegram-btn:hover,
+.instagram-btn:hover,
+.facebook-btn:hover {
   transform: translateY(-3px);
+}
+
+.whatsapp-btn:hover {
   background-color: #1da851; /* Darker WhatsApp green */
 }
 
 .telegram-btn:hover {
-  transform: translateY(-3px);
   background-color: #006699; /* Darker Telegram blue */
 }
 
 .instagram-btn:hover {
-  transform: translateY(-3px);
   opacity: 0.9; /* Slight opacity change for hover */
 }
 
 .facebook-btn:hover {
-  transform: translateY(-3px);
   background-color: #145cb3; /* Darker Facebook blue */
 }
 
@@ -324,7 +357,6 @@
 .room-hero h1 {
   position: relative;
   z-index: 2;
-  font-family: var(--font-accent);
   font-size: clamp(3rem, 10vw, 6rem);
   color: #fff;
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -354,160 +386,30 @@
   direction: ltr;
 }
 
-.room-photo {
-  position: relative;
-  height: 350px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: #d1d1d1;
-}
-
-.room-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-/* Overlay cromatici basati sulla stanza */
-.bloom .room-photo::after {
+/* Overlay Color Filters for Room Photos */
+.room-photo::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--sun-yellow);
+  background: var(--sun-yellow); /* Default (Bloom) */
   opacity: 0.1;
   pointer-events: none;
+  z-index: 1;
 }
+
 .breeze .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background: var(--sea-teal);
-  opacity: 0.1;
-  pointer-events: none;
 }
 .roots .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background: var(--sea-terracotta);
-  opacity: 0.1;
-  pointer-events: none;
 }
 .loft .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background: var(--sea-deep);
-  opacity: 0.1;
-  pointer-events: none;
 }
 
-.room-photo:hover img {
-  transform: scale(1.05);
-}
-.room-hero {
-  height: 60vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.room-hero img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.room-hero h1 {
-  position: relative;
-  z-index: 2;
-  font-family: var(--font-accent);
-  font-size: clamp(3rem, 10vw, 6rem);
-  color: #fff;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.room-intro-text {
-  max-width: 800px;
-  margin: 100px auto 80px; /* Aumentato per distanziarlo correttamente dalla Hero */
-  text-align: center;
-  padding: 0 20px;
-}
-
-/* Mirror Gallery Layout */
-.room-gallery-row {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  align-items: center;
-  gap: clamp(20px, 4vw, 50px);
-  margin: 120px 0;
-}
-
-/* Gestione inversione per Breeze e Loft */
-.room-gallery-row.reversed {
-  direction: rtl; /* Inverte l'ordine delle colonne del grid */
-}
-
-.room-gallery-row.reversed > * {
-  direction: ltr; /* Ripristina la direzione del testo interna */
-}
-
-.room-photo {
-  position: relative;
-  height: 350px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: #d1d1d1;
-}
-
-.room-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-/* Overlay cromatici basati sulla stanza */
-.bloom .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--sun-yellow);
-  opacity: 0.1;
-  pointer-events: none;
-}
-.breeze .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--sea-teal);
-  opacity: 0.1;
-  pointer-events: none;
-}
-.roots .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--sea-terracotta);
-  opacity: 0.1;
-  pointer-events: none;
-}
-.loft .room-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--sea-deep);
-  opacity: 0.1;
-  pointer-events: none;
-}
-
+/* Global Hover Scale */
+.room-card:hover img,
+.territory-card:hover img,
 .room-photo:hover img {
   transform: scale(1.05);
 }
@@ -549,7 +451,6 @@
 }
 
 .sb-room-nav-name {
-  font-family: var(--font-accent); /* Mantenuto lo stile */
   font-size: 1.4rem; /* Ridotto leggermente il font per adattarsi */
   color: var(--sea-deep);
   transition: color 0.3s;
@@ -565,7 +466,6 @@
 }
 
 .room-info h3 {
-  font-family: var(--font-accent);
   font-size: clamp(2rem, 4vw, 3rem);
   color: var(--sea-deep);
   margin-bottom: 15px;
@@ -580,7 +480,6 @@
 }
 
 .room-tech-info h4 {
-  font-family: var(--font-serif);
   color: var(--sea-deep);
   margin-bottom: 15px;
   text-transform: uppercase;

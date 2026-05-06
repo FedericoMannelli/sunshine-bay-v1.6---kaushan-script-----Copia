@@ -11,18 +11,18 @@ function runHomeEntrance() {
   const titleContainer = document.querySelector(".hero-title-container");
   const titleLines = document.querySelectorAll(".title-line-1, .title-line-2");
 
-  if (heroImages.length === 0 && !titleContainer && titleLines.length === 0) return;
+  if (!heroImages.length && !titleContainer && !titleLines.length) return;
 
   // RESET: Riporta gli elementi allo stato iniziale (invisibili/spostati) 
   // prima di far partire l'animazione. Necessario per la ripetizione al toggle del menu.
-  if (heroImages.length > 0) gsap.set(heroImages, { y: -80, opacity: 0 });
+  if (heroImages.length) gsap.set(heroImages, { y: -80, opacity: 0 });
   if (titleContainer) gsap.set(titleContainer, { opacity: 0, y: -40 });
-  if (titleLines.length > 0) gsap.set(titleLines, { opacity: 0, y: -30 });
+  if (titleLines.length) gsap.set(titleLines, { opacity: 0, y: -30 });
 
   // Creazione della Timeline principale per sincronizzare gli ingressi
   const tl = gsap.timeline();
 
-  // 1. Ingresso immagini: se esistono, le facciamo apparire
+  // 1. Ingresso immagini
   if (heroImages.length > 0) {
     tl.to(heroImages, {
       y: 0,
@@ -30,7 +30,7 @@ function runHomeEntrance() {
       duration: 1.2,
       stagger: 0.1,
       ease: "power3.out",
-    }, 0.3).addLabel("imagesDone");
+    }, 0.3);
   }
 
   // 2. Apparizione contenitore titolo
@@ -43,24 +43,20 @@ function runHomeEntrance() {
     }, 0.3);
   }
 
-  // 3. Animazione delle nuove righe di testo
+  // 3. Animazione righe di testo
   if (titleLines.length > 0) {
     tl.to(titleLines, {
       opacity: 1,
       y: 0,
-      duration: 1.2,
-      stagger: 0.2, // Fa apparire la seconda riga poco dopo la prima
+      duration: 1,
+      stagger: 0.2,
       ease: "power3.out"
-    }, 0.3);
+    }, "-=0.8");
   }
 }
 
 // Avvia l'animazione non appena il DOM è pronto
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", runHomeEntrance);
-} else {
-  runHomeEntrance();
-}
+document.addEventListener("DOMContentLoaded", runHomeEntrance);
 
 // --- EFFETTI PARALLAX ALLO SCROLL ---
 // Ogni immagine si muove a una velocità diversa rispetto allo scroll (scrub)
@@ -70,24 +66,22 @@ if (document.querySelector(".hero")) {
     scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
   });
 
-  if (document.querySelector(".hero-img-1")) {
-    gsap.to(".hero-img-1", {
-      y: -60,
-      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-    });
-  }
-  if (document.querySelector(".hero-img-2")) {
-    gsap.to(".hero-img-2", {
-      y: -120,
-      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-    });
-  }
-  if (document.querySelector(".hero-img-3")) {
-    gsap.to(".hero-img-3", {
-      y: -220,
-      scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
-    });
-  }
+  // Configurazione Parallax Asimmetrico: Senior Refactoring
+  const parallaxConfigs = [
+    { sel: ".hero-img-1", y: -60 },
+    { sel: ".hero-img-2", y: -120 },
+    { sel: ".hero-img-3", y: -220 }
+  ];
+
+  parallaxConfigs.forEach(config => {
+    const el = document.querySelector(config.sel);
+    if (el) {
+      gsap.to(el, {
+        y: config.y,
+        scrollTrigger: { trigger: ".hero", start: "top top", scrub: 1 },
+      });
+    }
+  });
 
   // --- DISSOLVENZA IMMAGINI ---
   gsap.to(".hero-images-container", {
@@ -161,12 +155,14 @@ if (breakfastSection) {
     );
   }
 
-  const bImage = breakfastSection.querySelector(".breakfast-image");
+  const bImageContainer = breakfastSection.querySelector(".breakfast-image");
+  const bImage = bImageContainer?.querySelector("img");
   if (bImage) {
     gsap.to(bImage, {
-      y: -120,
+      y: -50, // Movimento interno più contenuto
+      scale: 1.1, // Leggero zoom per non mostrare i bordi durante il movimento
       scrollTrigger: {
-        trigger: breakfastSection,
+        trigger: bImageContainer,
         start: "top bottom",
         end: "bottom top",
         scrub: 1.5

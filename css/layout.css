@@ -149,14 +149,6 @@ body.sb-menu-open .sb-menu-fullscreen {
   margin: 0 auto;
 }
 
-.section-title {
-  font-family: var(--font-serif);
-  color: var(--sea-deep);
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-
 /* Griglia Camere e Territorio */
 .rooms-grid,
 .territory-grid {
