@@ -113,7 +113,7 @@ h4,
 
 /* Fix hero-img-3: visualizzazione intera peschereccio */
 .hero-img-3 {
-  object-fit: contain !important;
+  object-fit: cover; /* Ora coprirà l'intero contenitore */
 }
 
 .storytelling h2 {

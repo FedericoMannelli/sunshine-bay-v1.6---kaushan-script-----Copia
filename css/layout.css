@@ -73,6 +73,8 @@
   .hero-img-3 {
     width: 30vw;
     height: 24vw;
+    /* Centramento gestito da transform: translateX(-50%) */
+    transform: translateX(-50%);
   }
 }
 
